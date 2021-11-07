@@ -1,0 +1,5 @@
+aaa = {}
+
+function aaa.test()
+	print("aaa loaded")
+end

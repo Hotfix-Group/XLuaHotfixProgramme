@@ -1,0 +1,32 @@
+--用Lua重写原C#游戏的UI界面,注入相应资源
+local UnityEngine=CS.UnityEngine
+local ice
+local fire
+local return
+local shatter
+local treasure
+local gun
+local timeVal
+local canUse
+local totalTime
+local cost
+
+function start()
+	print("lua start...")
+	ice=Ice:GetComponent("Button").onClick:AddListener(function() Ice() end) 	
+	print("obj injected",ice)
+	fire=Fire:GetComponent("Button").onClick:AddListener(function() Fire() end)
+	shatter=Shatter:GetComponent("Button").onClick:AddListener(function() Shatter() end)
+	treasure=Treasure:GetComponent("Button").onClick:AddListener(function() OpenTreasour() end)
+	
+
+end
+
+--重写技能UI
+
+
+
+--释放资源
+function ondestroy()
+	print("lua destory...")
+end

@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{63F3845C-9830-0457-158B-7504F7B4BE45}</ProjectGuid>
+    <ProjectGuid>{15DE90E7-7490-2959-D110-AF97528715C4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -141,8 +141,6 @@
     <Compile Include="Assets\GoogleProtobuf\WellKnownTypes\Wrappers.cs" />
     <Compile Include="Assets\GoogleProtobuf\WellKnownTypes\WrappersPartial.cs" />
     <Compile Include="Assets\GoogleProtobuf\WireFormat.cs" />
-    <Compile Include="Assets\Scripts\Connection.cs" />
-    <Compile Include="Assets\Scripts\Download.cs" />
     <Compile Include="Assets\Scripts\Effect\Explosion.cs" />
     <Compile Include="Assets\Scripts\Effect\Pao.cs" />
     <Compile Include="Assets\Scripts\Effect\Shake.cs" />
@@ -155,15 +153,24 @@
     <Compile Include="Assets\Scripts\Enemy\Fish.cs" />
     <Compile Include="Assets\Scripts\Enemy\InvisibleBoss.cs" />
     <Compile Include="Assets\Scripts\Enemy\Qipao.cs" />
-    <Compile Include="Assets\Scripts\EventMgr.cs" />
-    <Compile Include="Assets\Scripts\HotfixScripts.cs" />
     <Compile Include="Assets\Scripts\Item\Card.cs" />
     <Compile Include="Assets\Scripts\Item\FishNet.cs" />
     <Compile Include="Assets\Scripts\Item\Gold.cs" />
     <Compile Include="Assets\Scripts\Item\Missile.cs" />
     <Compile Include="Assets\Scripts\Item\Shell.cs" />
-    <Compile Include="Assets\Scripts\Network.cs" />
+    <Compile Include="Assets\Scripts\Lua\HotfixScripts.cs" />
+    <Compile Include="Assets\Scripts\Lua\LuaBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Lua\LuaResources.cs" />
+    <Compile Include="Assets\Scripts\Manager\EventMgr.cs" />
+    <Compile Include="Assets\Scripts\Manager\FileManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\LuaManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\MonoSingleton.cs" />
+    <Compile Include="Assets\Scripts\Network\Connection.cs" />
+    <Compile Include="Assets\Scripts\Network\Download.cs" />
+    <Compile Include="Assets\Scripts\Network\Network.cs" />
+    <Compile Include="Assets\Scripts\Network\Protocol.cs" />
     <Compile Include="Assets\Scripts\Player\Bullect.cs" />
+    <Compile Include="Assets\Scripts\Player\GameInit.cs" />
     <Compile Include="Assets\Scripts\Player\Gun.cs" />
     <Compile Include="Assets\Scripts\Player\GunChange.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerUI\ButterFly.cs" />
@@ -178,7 +185,6 @@
     <Compile Include="Assets\Scripts\Player\UI\Star.cs" />
     <Compile Include="Assets\Scripts\Player\UI\StartGame.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Treasour.cs" />
-    <Compile Include="Assets\Scripts\Protocol.cs" />
     <Compile Include="Assets\XLua\Examples\01_Helloworld\Helloworld.cs" />
     <Compile Include="Assets\XLua\Examples\02_U3DScripting\LuaBehaviour.cs" />
     <Compile Include="Assets\XLua\Examples\04_LuaObjectOrented\InvokeLua.cs" />
@@ -285,73 +291,80 @@
     <None Include="Assets\Texture\fish.lua.txt" />
     <None Include="Assets\XLua\Gen\link.xml" />
     <None Include="Assets\XLua\Examples\02_U3DScripting\LuaTestScript.lua.txt" />
+    <None Include="Assets\LuaScripts\test\ccc.lua.txt" />
     <None Include="Assets\XLua\Examples\07_AsyncTest\Resources\async_test.lua.txt" />
     <None Include="Assets\XLua\Tutorial\LoadLuaScript\ByFile\Resources\byfile.lua.txt" />
     <None Include="Assets\XLua\Examples\06_Coroutine\Resources\coruntine_test.lua.txt" />
+    <None Include="Assets\LuaScripts\LuaUIManager.lua.txt" />
+    <None Include="Assets\LuaScripts\test\aaa.lua.txt" />
     <None Include="Assets\XLua\Resources\xlua\util.lua.txt" />
     <None Include="Assets\XLua\Examples\03_UIEvent\ButtonInteraction.lua.txt" />
+    <None Include="Assets\LuaScripts\test\bbb.lua.txt" />
     <None Include="Assets\XLua\Gen\Resources\hotfix_id_map.lua.txt" />
     <None Include="Assets\GoogleProtobuf\readme.txt" />
+    <None Include="Assets\LuaScripts\Main.lua.txt" />
     <None Include="Assets\XLua\Resources\perf\profiler.lua.txt" />
+    <None Include="Assets\LuaScripts\LuaMonoBehaviour.lua.txt" />
     <None Include="Assets\XLua\Resources\perf\memory.lua.txt" />
+    <None Include="Assets\LuaScripts\LuaUIScript.lua.txt" />
     <None Include="Assets\XLua\CHANGELOG.txt" />
     <None Include="Assets\XLua\Resources\tdr\tdr.lua.txt" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.CacheServer">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/ScriptAssemblies/UnityEditor.CacheServer.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/ScriptAssemblies/UnityEditor.CacheServer.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ScriptableBuildPipeline.Editor">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.Editor.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.multiplayer-hlapi.Editor">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ResourceManager">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/ScriptAssemblies/Unity.ResourceManager.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/ScriptAssemblies/Unity.ResourceManager.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Addressables.Editor">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/ScriptAssemblies/Unity.Addressables.Editor.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/ScriptAssemblies/Unity.Addressables.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.multiplayer-weaver.Editor">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/ScriptAssemblies/com.unity.multiplayer-weaver.Editor.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/ScriptAssemblies/com.unity.multiplayer-weaver.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.XR.LegacyInputHelpers">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.SpatialTracking">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SpatialTracking">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Addressables">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/ScriptAssemblies/Unity.Addressables.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/ScriptAssemblies/Unity.Addressables.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ScriptableBuildPipeline">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.XR.LegacyInputHelpers">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.multiplayer-hlapi.Runtime">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -537,13 +550,13 @@
       <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>D:/XluaProjects/FishingJoy/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>D:/XluaProjects/XLuaHotfixProgramme/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>D:/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
