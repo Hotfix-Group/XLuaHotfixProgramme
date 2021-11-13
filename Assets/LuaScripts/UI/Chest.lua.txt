@@ -1,0 +1,19 @@
+--当前UI名称
+local panelName = 'ChestPanel'
+--UI中的元素
+local btnChest = nil
+
+function Awake()
+	print(panelName,'Awake',self.gameObject.name)
+	btnIce = CS.XLuaUtils.GetGameObjectByName('btnChest',self.gameObject)
+end
+
+function Start()
+    AddListener()
+end
+
+--按钮添加点击事件
+function AddListener()
+    btnIce:AddButtonListener(OnClickChest)
+
+end

@@ -98,8 +98,6 @@ public class LuaManager : MonoSingleton<LuaManager>
         DoString(LoadLuaScript("LuaMonoBehaviour"), "LuaMonoBehaviour", luaTable);
         //加载字典储存的lua脚本，如果在main里面已经require了则不需要此方法
         //DoString(LoadLuaScript(luaFilePathDict[scriptName]), scriptName, luaTable);
-
-
         return luaTable;
     }
     //用C#读取lua文件的方法，我们不需要

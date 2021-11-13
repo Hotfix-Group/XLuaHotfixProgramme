@@ -1,72 +1,65 @@
---绑定ugui的关键字
-LuaView.keywords={
-	['Button']='UnityEngine.UI.Button',
-	['GridLayoutGroup']='UnityEngine.UI.GridLayoutGroup',
-	['HorizontalLayoutGroup']='UnityEngine.UI.HorizontalLayoutGroup',
-	['Image']='UnityEngine.UI.Image',
-	['InputField']='UnityEngine.UI.InputField',
-	['RawImage']='UnityEngine.UI.RawImage',
-	['Scrollbar']='UnityEngine.UI.Scrollbar',
-	['ScrollRect']='UnityEngine.UI.ScrollRect',
-	['Slider']='UnityEngine.UI.Slider',
-	['Text']='UnityEngine.UI.Text',
-	['Toggle']='UnityEngine.UI.Toggle',
-	['ToggleGroup']='UnityEngine.UI.ToggleGroup',
-	['VerticalLayoutGroup']='UnityEngine.VerticalLayoutGroup',
-}
-UIManager = {}
-local name = 'UIManager'
---定义数组保存已创建的panel
-local windows = {}
---当前显示的panel
-local currWindow = nil
---panel的父对象，一般是canvas
-local uiCanvas = nil
+LuaUIManager = {}
 
---初始化
+--local GameObject = CS.UnityEngine.GameObject
+
+local name = 'LuaUIManager'
+--需要切换不同ui时才用
+local windows = {}
+local currWindow = nil
+local PrefabPath = "Prefabs/UI/PlayerUI/"
+
+local uiCanvas = nil
+--初始化，找到canvas
 local function Init()
 	print('UIManager Init...')
-	--查找Canvas
 	uiCanvas = GameObject.Find("Canvas")
-	loacal obj = CreatePanel("")
-	--将生成的panel存到数组
-	windows[""] = obj
-	currWindow = obj
+	
+	local obj = CreatePanel("UI_Skills")
+    CreatePanel("UI_Chest")
+    CreatePanel("UI_LeftTable")
+    CreatePanel("UI_RightTable")
+    CreatePanel("UI_ReturnMenu")
+    CreatePanel("UI_Gun")
+
+	--windows[] = obj
+	--currWindow = obj
 end
 
---打开任意panel
-local function OpenPanel(panelName)
-	local target = windows[panelName]
-	currWindow:SetActive(false)
-	-- 如果数组中没有target则创建一个
-	if target == nil then
-		target = CreatePanel(panelName)
-	end
-	currWindow = target
-	target:SetActive(true)
-end
-
---创建、加载以及实例化Panel
+--创建panel
 function CreatePanel(panelName)
-	--从Resource文件夹加载UI预制体
-	local prefab = ResourcesManager.Load(panelName)
-	--实例化预制体到Canvas中
-	local panel = Object.Instantiate(prefab,uiCanvas.transform)
-	panel.name = panelName
-	panel:SetActive(true)
-	windows[panelName] = panel
-	return panel
+    -- local panel = CS.XLuaUtils.GetGameObjectByName(panelName)
+    local prefab=ResourcesManager.Load(PrefabPath..panelName)
+    print(PrefabPath..panelName)
+    --CS.UnityEngine.Resources.Load("")
+    local panel=Object.Instantiate(prefab,uiCanvas.transform)
+    panel.name=panelName
+    print("panel ",panelName,prefab)
+    panel:SetActive(true)
+    windows[panelName] = panel
+    return panel
 end
 
---隐藏已经打开的界面
+--打开UI面板
+local function OpenPanel(panelName)
+    local target = windows[panelName]
+    currWindow:SetActive(false)
+    if target == nil then
+        target = CreatePanel(panelName)
+    end
+    currWindow=target;
+    target:SetActive(true)      
+end
+
+--关闭UI面板
 local function ClosePanel(panelName)
-	local target = windows[panelName]
-	if target == nil then
-		target:SetActive(false)
-	end
+    local target = windows[panelName]
+    if target == nil then
+        target:SetActive(false)
+    end
 end
 
-UIManager.Init = Init
-UIManager.OpenPanel = OpenPanel
-UIManager.ClosePanel = ClosePanel
-return UIManager
+LuaUIManager.Init = Init
+LuaUIManager.OpenPanel = OpenPanel
+LuaUIManager.ClosePanel = ClosePanel
+
+return LuaUIManager

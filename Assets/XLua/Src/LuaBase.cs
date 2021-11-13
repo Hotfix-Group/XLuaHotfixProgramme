@@ -23,8 +23,8 @@ namespace XLua
     public abstract class LuaBase : IDisposable
     {
         protected bool disposed;
-        protected readonly int luaReference;
-        protected readonly LuaEnv luaEnv;
+        protected int luaReference;
+        protected LuaEnv luaEnv;
 
 #if UNITY_EDITOR || XLUA_GENERAL
         protected int _errorFuncRef { get { return luaEnv.errorFuncRef; } }
@@ -72,6 +72,7 @@ namespace XLua
                     }
 #endif
                 }
+                luaEnv = null;
                 disposed = true;
             }
         }
@@ -103,10 +104,7 @@ namespace XLua
 
         public override int GetHashCode()
         {
-            LuaAPI.lua_getref(luaEnv.L, luaReference);
-            var pointer = LuaAPI.lua_topointer(luaEnv.L, -1);
-            LuaAPI.lua_pop(luaEnv.L, 1);
-            return pointer.ToInt32();
+            return luaReference + ((luaEnv != null) ? luaEnv.L.ToInt32() : 0);
         }
 
         internal virtual void push(RealStatePtr L)

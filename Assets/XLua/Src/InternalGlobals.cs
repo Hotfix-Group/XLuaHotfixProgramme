@@ -24,20 +24,18 @@ namespace XLua
 {
     internal partial class InternalGlobals
     {
-#if !THREAD_SAFE && !HOTFIX_ENABLE
         internal static byte[] strBuff = new byte[256];
-#endif
 
         internal delegate bool TryArrayGet(Type type, RealStatePtr L, ObjectTranslator translator, object obj, int index);
         internal delegate bool TryArraySet(Type type, RealStatePtr L, ObjectTranslator translator, object obj, int array_idx, int obj_idx);
-        internal static volatile TryArrayGet genTryArrayGetPtr = null;
-        internal static volatile TryArraySet genTryArraySetPtr = null;
+        internal static TryArrayGet genTryArrayGetPtr = null;
+        internal static TryArraySet genTryArraySetPtr = null;
 
         internal static volatile ObjectTranslatorPool objectTranslatorPool = new ObjectTranslatorPool();
 
-        internal static volatile int LUA_REGISTRYINDEX = -10000;
+        internal static int LUA_REGISTRYINDEX = -10000;
 
-        internal static volatile Dictionary<string, string> supportOp = new Dictionary<string, string>()
+        internal static Dictionary<string, string> supportOp = new Dictionary<string, string>()
         {
             { "op_Addition", "__add" },
             { "op_Subtraction", "__sub" },
@@ -56,13 +54,13 @@ namespace XLua
             { "op_RightShift", "__shr" },
         };
 
-        internal static volatile Dictionary<Type, IEnumerable<MethodInfo>> extensionMethodMap = null;
+        internal static Dictionary<Type, IEnumerable<MethodInfo>> extensionMethodMap = null;
 
 #if GEN_CODE_MINIMIZE
-        internal static volatile LuaDLL.CSharpWrapperCaller CSharpWrapperCallerPtr = new LuaDLL.CSharpWrapperCaller(StaticLuaCallbacks.CSharpWrapperCallerImpl);
+        internal static LuaDLL.CSharpWrapperCaller CSharpWrapperCallerPtr = new LuaDLL.CSharpWrapperCaller(StaticLuaCallbacks.CSharpWrapperCallerImpl);
 #endif
 
-        internal static volatile LuaCSFunction LazyReflectionWrap = new LuaCSFunction(Utils.LazyReflectionCall);
+        internal static LuaCSFunction LazyReflectionWrap = new LuaCSFunction(Utils.LazyReflectionCall);
     }
 
 }

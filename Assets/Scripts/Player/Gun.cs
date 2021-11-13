@@ -80,12 +80,17 @@ public class Gun : MonoBehaviour
         diamands = 50;
         level = 2;
         bullectAudio = GetComponent<AudioSource>();
+      
+
+
     }
 
     // Use this for initialization
     void Start()
     {
-       
+
+        goldText = GameObject.Find("Canvas/UI_LeftTable/Goldtable/Text").GetComponent<Text>();
+        diamandsText = GameObject.Find("Canvas/UI_RightTable/Goldtable/Text").GetComponent<Text>();
     }
 
     // Update is called once per frame

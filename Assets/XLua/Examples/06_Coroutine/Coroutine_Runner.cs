@@ -4,26 +4,36 @@ using System.Collections.Generic;
 using System.Collections;
 using System;
 
-namespace XLuaTest
+[LuaCallCSharp]
+public class Coroutine_Runner : MonoBehaviour
 {
-    public class Coroutine_Runner : MonoBehaviour
+    public void YieldAndCallback(object to_yield, Action callback)
     {
+        StartCoroutine(CoBody(to_yield, callback));
     }
 
-
-    public static class CoroutineConfig
+    private IEnumerator CoBody(object to_yield, Action callback)
     {
-        [LuaCallCSharp]
-        public static List<Type> LuaCallCSharp
+        if (to_yield is IEnumerator)
+            yield return StartCoroutine((IEnumerator)to_yield);
+        else
+            yield return to_yield;
+        callback();
+    }
+}
+
+public static class CoroutineConfig
+{
+    [LuaCallCSharp]
+    public static List<Type> LuaCallCSharp
+    {
+        get
         {
-            get
-            {
-                return new List<Type>()
+            return new List<Type>()
             {
                 typeof(WaitForSeconds),
                 typeof(WWW)
             };
-            }
         }
     }
 }

@@ -21,12 +21,10 @@ namespace XLua
 {
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
 
     public class LuaEnv : IDisposable
     {
-        public const string CSHARP_NAMESPACE = "xlua_csharp_namespace";
-        public const string MAIN_SHREAD = "xlua_main_thread";
-
         internal RealStatePtr rawL;
 
         internal RealStatePtr L
@@ -48,7 +46,7 @@ namespace XLua
         internal int errorFuncRef = -1;
 
 #if THREAD_SAFE || HOTFIX_ENABLE
-        internal /*static*/ object luaLock = new object();
+        internal static object luaLock = new object();
 
         internal object luaEnvLock
         {
@@ -59,7 +57,7 @@ namespace XLua
         }
 #endif
 
-        const int LIB_VERSION_EXPECT = 105;
+        const int LIB_VERSION_EXPECT = 104;
 
         public LuaEnv()
         {
@@ -71,8 +69,8 @@ namespace XLua
 
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock(luaEnvLock)
-#endif
             {
+#endif
                 LuaIndexes.LUA_REGISTRYINDEX = LuaAPI.xlua_get_registry_index();
 #if GEN_CODE_MINIMIZE
                 LuaAPI.xlua_set_csharp_wrapper_caller(InternalGlobals.CSharpWrapperCallerPtr);
@@ -83,6 +81,7 @@ namespace XLua
                 //Init Base Libs
                 LuaAPI.luaopen_xlua(rawL);
                 LuaAPI.luaopen_i64lib(rawL);
+                LuaAPI.luaopen_perflib(rawL);
 
                 translator = new ObjectTranslator(this, rawL);
                 translator.createFunctionMetatable(rawL);
@@ -111,12 +110,8 @@ namespace XLua
                 DoString(init_xlua, "Init");
                 init_xlua = null;
 
-#if (!UNITY_SWITCH && !UNITY_WEBGL) || UNITY_EDITOR
                 AddBuildin("socket.core", StaticLuaCallbacks.LoadSocketCore);
                 AddBuildin("socket", StaticLuaCallbacks.LoadSocketCore);
-#endif
-
-                AddBuildin("CS", StaticLuaCallbacks.LoadCS);
 
                 LuaAPI.lua_newtable(rawL); //metatable of indexs and newindexs functions
                 LuaAPI.xlua_pushasciistring(rawL, "__index");
@@ -149,24 +144,16 @@ namespace XLua
 
                 LuaAPI.lua_pop(rawL, 1); // pop metatable of indexs and newindexs functions
 
-                LuaAPI.xlua_pushasciistring(rawL, MAIN_SHREAD);
+                LuaAPI.xlua_pushasciistring(rawL, "xlua_main_thread");
                 LuaAPI.lua_pushthread(rawL);
                 LuaAPI.lua_rawset(rawL, LuaIndexes.LUA_REGISTRYINDEX);
-
-                LuaAPI.xlua_pushasciistring(rawL, CSHARP_NAMESPACE);
-                if (0 != LuaAPI.xlua_getglobal(rawL, "CS"))
-                {
-                    throw new Exception("get CS fail!");
-                }
-                LuaAPI.lua_rawset(rawL, LuaIndexes.LUA_REGISTRYINDEX);
-
 #if !XLUA_GENERAL && (!UNITY_WSA || UNITY_EDITOR)
                 translator.Alias(typeof(Type), "System.MonoType");
 #endif
 
-                if (0 != LuaAPI.xlua_getglobal(rawL, "_G"))
+            if (0 != LuaAPI.xlua_getglobal(rawL, "_G"))
                 {
-                    throw new Exception("get _G fail!");
+                    throw new Exception("call xlua_getglobal fail!");
                 }
                 translator.Get(rawL, -1, out _G);
                 LuaAPI.lua_pop(rawL, 1);
@@ -184,7 +171,9 @@ namespace XLua
                 translator.CreateArrayMetatable(rawL);
                 translator.CreateDelegateMetatable(rawL);
                 translator.CreateEnumerablePairs(rawL);
+#if THREAD_SAFE || HOTFIX_ENABLE
             }
+#endif
         }
 
         private static List<Action<LuaEnv, ObjectTranslator>> initers = null;
@@ -465,7 +454,6 @@ namespace XLua
             local rawget = rawget
             local setmetatable = setmetatable
             local import_type = xlua.import_type
-            local import_generic_type = xlua.import_generic_type
             local load_assembly = xlua.load_assembly
 
             function metatable:__index(key) 
@@ -487,21 +475,9 @@ namespace XLua
                 return obj
             end
 
-            function metatable:__newindex()
-                error('No such type: ' .. rawget(self,'.fqn'), 2)
-            end
-
             -- A non-type has been called; e.g. foo = System.Foo()
             function metatable:__call(...)
-                local n = select('#', ...)
-                local fqn = rawget(self,'.fqn')
-                if n > 0 then
-                    local gt = import_generic_type(fqn, ...)
-                    if gt then
-                        return rawget(CS, gt)
-                    end
-                end
-                error('No such type: ' .. fqn, 2)
+                error('No such type: ' .. rawget(self,'.fqn'), 2)
             end
 
             CS = CS or {}
@@ -567,7 +543,6 @@ namespace XLua
                         end
                     end)
                 end
-                xlua.private_accessible(cs)
             end
             xlua.getmetatable = function(cs)
                 return xlua.metatable_operation(cs)

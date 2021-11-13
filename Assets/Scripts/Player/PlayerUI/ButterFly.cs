@@ -15,7 +15,7 @@ public class ButterFly : MonoBehaviour
     private float timeVal = 15;
     private bool canUse = true;
     private float totalTime = 15;
-    public GameObject uiView;
+    //public GameObject uiView;
 
     public Slider cdSlider;
     private int reduceDiamands;
@@ -70,7 +70,7 @@ public class ButterFly : MonoBehaviour
             cdSlider.transform.Find("Background").gameObject.SetActive(true);
             timeVal = 0;
             Invoke("CloseFire", 8);
-            uiView.SetActive(true);
+           // uiView.SetActive(true);
 
         }
 
@@ -79,7 +79,7 @@ public class ButterFly : MonoBehaviour
     //关闭必杀的方法
     private void CloseFire()
     {
-        uiView.SetActive(false);
+        //uiView.SetActive(false);
         Gun.Instance.Butterfly = false;
     }
 

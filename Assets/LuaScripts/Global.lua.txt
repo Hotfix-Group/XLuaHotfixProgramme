@@ -1,0 +1,8 @@
+--全局模块管理
+
+ResourcesManager=require "ResourcesManager"
+LuaUIManager = require "LuaUIManager"
+
+GameObject = CS.UnityEngine.GameObject
+Object=CS.UnityEngine.Object
+

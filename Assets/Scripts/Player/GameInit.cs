@@ -31,7 +31,7 @@ public class GameInit : MonoSingleton<GameInit>
     private void Start()
     {
         LuaManager.GetInstance().OnEntry();
-        GameObject.Find("Canvas/testBtn").AddComponent<LuaBehaviour>();
+
     }
 
      void Update()

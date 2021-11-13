@@ -1,0 +1,24 @@
+--所有lua脚本的入口
+require("test/aaa")
+require("test/bbb")
+require("test/ccc")
+require("LuaUIManager")
+require("Global")
+
+Main = {}
+
+local function EnterGame()
+	print('Enter Game')
+	LuaUIManager.Init()
+end
+
+local function Start()
+	print('Start Game')
+	EnterGame()
+	aaa.test()
+end
+
+Main.Start = Start;
+Main.EnterGame = EnterGame;
+
+return Main

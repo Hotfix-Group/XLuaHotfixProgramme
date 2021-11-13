@@ -7,6 +7,7 @@ using XLua;
 /// <summary>
 /// 冰冻
 /// </summary>
+[LuaCallCSharp]
 [Hotfix]
 public class Ice : MonoBehaviour
 {

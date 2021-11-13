@@ -7,7 +7,7 @@ xLua所有的配置都支持三种方式：打标签；静态列表；动态列�
 * 列表方式均必须是static的字段/属性
 * 列表方式均必须放到一个static类
 * 建议不用标签方式
-* 建议列表方式配置放Editor目录（如果是Hotfix配置，而且类位于Assembly-CSharp.dll之外的其它dll，必须放Editor目录）
+* 建议列表方式配置放Editor目录
 
 **打标签**
 
@@ -124,9 +124,7 @@ xLua只会生成加了该配置的类型，不会自动生成其父类的适配�
 [BlackList]
 public static List<List<string>> BlackList = new List<List<string>>()  {
     new List<string>(){"UnityEngine.GameObject", "networkView"},
-    //new List<string>(){ typeof(UnityEngine.GameObject).FullName, "networkView"},
     new List<string>(){"System.IO.FileInfo", "GetAccessControl", "System.Security.AccessControl.AccessControlSections"},
-    //new List<string>(){ typeof(System.IO.FileInfo).FullName, "GetAccessControl",typeof(System.Security.AccessControl.AccessControlSections).FullName },
 };
 
 ~~~

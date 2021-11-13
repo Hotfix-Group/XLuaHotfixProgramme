@@ -20,11 +20,13 @@ public class GunImage : MonoBehaviour
     private void Awake()
     {
         img = transform.GetComponent<Image>();
+        
     }
     // Use this for initialization
     void Start()
     {
-
+        idlePos = GameObject.Find("Canvas/GunIdlePos").GetComponent<Transform>();
+        attackPos = GameObject.Find("Canvas/GunAttackPos").GetComponent<Transform>();
     }
 
     // Update is called once per frame

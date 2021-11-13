@@ -1,0 +1,49 @@
+--当前UI名称
+local panelName = 'SkillPanel'
+--UI中的元素
+local btnIce = nil
+local btnFire = nil
+local btnSG = nil
+
+function Awake()
+	print(panelName,'Awake',self.gameObject.name)
+	btnIce = CS.XLuaUtils.GetGameObjectByName('btnIce',self.gameObject)
+	btnFire = CS.XLuaUtils.GetGameObjectByName('btnFire',self.gameObject)
+	btnSG = CS.XLuaUtils.GetGameObjectByName('btnSG',self.gameObject)
+end
+
+function OnEnable()
+   -- print(panelName, ' LobbyPanel this is OnEnable function')
+end
+
+function Start()
+  --  print(panelName, '  this is Start function')
+    AddListener()
+end
+--按钮添加点击事件
+function AddListener()
+    btnIce:AddButtonListener(OnClickIce)
+    btnFire:AddButtonListener(OnClickFire)
+    btnSG:AddButtonListener(OnClickSG)
+end
+--冰冻技能
+function OnClickIce()
+    print('Ice')
+end
+--火焰技能
+function OnClickFire()
+    print('Fire')
+end
+--霰弹技能
+function OnClickSG()
+    print('SG')
+end
+
+function Update()
+    -- print("this is Update function")
+end
+
+function OnDestroy()
+    print('this is OnDestroy function')
+end
+	

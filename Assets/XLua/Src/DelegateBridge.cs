@@ -86,7 +86,7 @@ namespace XLua
 
     public static class HotfixDelegateBridge
     {
-#if (UNITY_IPHONE || UNITY_TVOS) && !UNITY_EDITOR
+#if UNITY_IPHONE && !UNITY_EDITOR
         [DllImport("__Internal", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool xlua_get_hotfix_flag(int idx);
 
@@ -117,7 +117,7 @@ namespace XLua
                 DelegateBridge.DelegateBridgeList = newList;
             }
             DelegateBridge.DelegateBridgeList[idx] = val;
-#if (UNITY_IPHONE || UNITY_TVOS) && !UNITY_EDITOR
+#if UNITY_IPHONE && !UNITY_EDITOR
             xlua_set_hotfix_flag(idx, val != null);
 #endif
         }
@@ -133,11 +133,6 @@ namespace XLua
         {
         }
 
-        public void PCall(IntPtr L, int nArgs, int nResults, int errFunc)
-        {
-            if (LuaAPI.lua_pcall(L, nArgs, nResults, errFunc) != 0)
-                luaEnv.ThrowExceptionFromError(errFunc - 1);
-        }
 
 #if HOTFIX_ENABLE
 
@@ -160,8 +155,7 @@ namespace XLua
             if (error != 0)
             {
                 var lastOldTop = _oldTop;
-                _oldTop = _stack.Pop();
-                System.Threading.Monitor.Exit(luaEnv.luaEnvLock);
+                InvokeSessionEnd();
                 luaEnv.ThrowExceptionFromError(lastOldTop);
             }
         }
