@@ -1,7 +1,7 @@
 --所有lua脚本的入口
-require("test/aaa")
-require("test/bbb")
-require("test/ccc")
+--require("test/aaa")
+--require("test/bbb")
+--require("test/ccc")
 require("LuaUIManager")
 require("Global")
 
@@ -15,7 +15,7 @@ end
 local function Start()
 	print('Start Game')
 	EnterGame()
-	aaa.test()
+	--aaa.test()
 end
 
 Main.Start = Start;

@@ -89,8 +89,8 @@ public class Gun : MonoBehaviour
     void Start()
     {
 
-        goldText = GameObject.Find("Canvas/UI_LeftTable/Goldtable/Text").GetComponent<Text>();
-        diamandsText = GameObject.Find("Canvas/UI_RightTable/Goldtable/Text").GetComponent<Text>();
+     //   goldText = GameObject.Find("Canvas/UI_LeftTable/Goldtable/Text").GetComponent<Text>();
+        //diamandsText = GameObject.Find("Canvas/UI_RightTable/Diamondtable/Text").GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -99,8 +99,8 @@ public class Gun : MonoBehaviour
 
 
 
-        goldText.text = gold.ToString();
-        diamandsText.text = diamands.ToString();
+        //goldText.text = gold.ToString();
+        //diamandsText.text = diamands.ToString();
 
 
         //旋转枪的方法

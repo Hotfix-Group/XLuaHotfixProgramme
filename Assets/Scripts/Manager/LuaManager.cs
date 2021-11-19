@@ -109,7 +109,6 @@ public class LuaManager : MonoSingleton<LuaManager>
         _scriptPath = Path.Combine(Application.dataPath, LuaScriptsFolder);
         _scriptPath = Path.Combine(_scriptPath, _filePath);
         string str = FileManager.GetFileContent(_scriptPath);
-
         return str;
     }
     //用委托桥接C#和lua的方法

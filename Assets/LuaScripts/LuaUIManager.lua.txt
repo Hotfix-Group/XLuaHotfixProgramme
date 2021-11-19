@@ -9,6 +9,11 @@ local currWindow = nil
 local PrefabPath = "Prefabs/UI/PlayerUI/"
 
 local uiCanvas = nil
+
+--游戏启动
+--local function StartUp()
+    
+
 --初始化，找到canvas
 local function Init()
 	print('UIManager Init...')
