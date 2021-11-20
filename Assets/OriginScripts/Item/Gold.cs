@@ -80,6 +80,7 @@ public class Gold : MonoBehaviour
         }
         if (beginMove)
         {
+
             transform.position = Vector3.Lerp(transform.position, playerTransform.position, 1 / Vector3.Distance(transform.position, playerTransform.position) * Time.deltaTime * moveSpeed);
             if (thePlaceTo == ThePlaceTo.imageDiamands || thePlaceTo == ThePlaceTo.imageGold)
             {

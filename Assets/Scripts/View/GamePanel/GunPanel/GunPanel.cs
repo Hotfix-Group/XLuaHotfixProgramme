@@ -12,11 +12,12 @@ public class GunPanel : MonoBehaviour
     {
         CoinNumber = transform.Find("CoinTable/Text").GetComponent<Text>();
         DiamondNumber = transform.Find("DiamondTable/Text").GetComponent<Text>();
-
         PlayerdataProxy playerdataProxy = ApplicationFacade.Instance.RetrieveProxy(PlayerdataProxy.NAME) as PlayerdataProxy;
         PlayerdataModel playerData = playerdataProxy.GetPlayerData;
-        CoinNumber.text = playerData.CoinNum.ToString();
-        DiamondNumber.text = playerData.DiamondNum.ToString();
-    }    
-   
+
+        //CoinNumber.text = playerData.CoinNum.ToString();
+       // DiamondNumber.text = playerData.DiamondNum.ToString();
+    } 
+ 
+ 
 }

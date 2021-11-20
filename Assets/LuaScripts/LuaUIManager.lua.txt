@@ -10,16 +10,18 @@ local PrefabPath = "Prefabs/UI/PlayerUI/"
 
 local uiCanvas = nil
 
---游戏启动
---local function StartUp()
-    
+--初始化开始界面
+local function InitMain()
+    uiCanvas = GameObject.Find("Canvas")
+    CreatePanel("UI_Main")
+end
 
---初始化，找到canvas
-local function Init()
-	print('UIManager Init...')
-	uiCanvas = GameObject.Find("Canvas")
+--初始化游戏界面
+local function InitGame()
+    print('UIManager Init...')
+    uiCanvas = GameObject.Find("Canvas")
 	
-	local obj = CreatePanel("UI_Skills")
+    local obj = CreatePanel("UI_Skills")
     CreatePanel("UI_Chest")
     CreatePanel("UI_LeftTable")
     CreatePanel("UI_RightTable")
@@ -63,7 +65,8 @@ local function ClosePanel(panelName)
     end
 end
 
-LuaUIManager.Init = Init
+LuaUIManager.InitMain = InitMain
+LuaUIManager.InitGame = InitGame
 LuaUIManager.OpenPanel = OpenPanel
 LuaUIManager.ClosePanel = ClosePanel
 

@@ -6,19 +6,27 @@ require("LuaUIManager")
 require("Global")
 
 Main = {}
-
-local function EnterGame()
-	print('Enter Game')
-	LuaUIManager.Init()
+--游戏启动，初始化主界面
+local function EnterMain()
+	print('Enter Main')
+	LuaUIManager.InitMain()
 end
 
-local function Start()
+--正式进入游戏，初始化游戏UI
+local function EnterGame()
+	print('Enter Game')
+	LuaUIManager.InitGame()
+end
+
+--这里执行所有游戏初始化时执行的脚本
+local function Startup()
 	print('Start Game')
-	EnterGame()
+	EnterMain()
 	--aaa.test()
 end
 
-Main.Start = Start;
+Main.Startup = Startup;
 Main.EnterGame = EnterGame;
+Main.EnterMain = EnterMain;
 
 return Main

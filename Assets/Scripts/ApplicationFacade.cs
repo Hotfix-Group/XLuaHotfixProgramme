@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XLua;
 
 /// <summary>
 /// 继承Facade核心类
@@ -11,6 +12,7 @@ using UnityEngine;
 /// 
 /// 每次Facade重写都要调用base.InitializeFacade()
 /// </summary>
+[LuaCallCSharp]
 public class ApplicationFacade : PureMVC.Patterns.Facade
 {
     //Notification常量
@@ -23,6 +25,7 @@ public class ApplicationFacade : PureMVC.Patterns.Facade
     public const string SKILL_FIRE = "skill_fire";//火焰技能
     public const string SKILL_SG = "skill_sg";//霰弹技能
     public const string COST_DIAMOND = "cost_diamond";//消耗钻石
+    public const string OPEN_CHEST = "open_chest";//打开宝箱
 
     static ApplicationFacade()
     {

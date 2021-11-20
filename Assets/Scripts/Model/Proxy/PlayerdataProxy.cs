@@ -21,6 +21,8 @@ public class PlayerdataProxy : PureMVC.Patterns.Proxy
             return Data as PlayerdataModel;
         }
     }
+
+
     public override void OnRegister()
     {
         Debug.Log("PlayerDataProxy OnRegister");

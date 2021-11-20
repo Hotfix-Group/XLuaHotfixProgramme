@@ -174,7 +174,7 @@ namespace PureMVC.Core
 				m_mediatorMap[mediator.MediatorName] = mediator;
 
 				// Get Notification interests, if any.
-				IList<string> interests = mediator.ListNotificationInterests();
+				IList<string> interests = mediator.GetListNotificationInterests();
 
 				// Register Mediator as an observer for each of its notification interests
 				if (interests.Count > 0)
@@ -225,7 +225,7 @@ namespace PureMVC.Core
 				mediator = (IMediator) m_mediatorMap[mediatorName];
 
 				// for every notification this mediator is interested in...
-				IList<string> interests = mediator.ListNotificationInterests();
+				IList<string> interests = mediator.GetListNotificationInterests();
 
 				for (int i = 0; i < interests.Count; i++)
 				{

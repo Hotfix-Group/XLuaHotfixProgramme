@@ -80,8 +80,8 @@ public class Gun : MonoBehaviour
         diamands = 50;
         level = 2;
         bullectAudio = GetComponent<AudioSource>();
-      
 
+       
 
     }
 
@@ -89,8 +89,14 @@ public class Gun : MonoBehaviour
     void Start()
     {
 
-     //   goldText = GameObject.Find("Canvas/UI_LeftTable/Goldtable/Text").GetComponent<Text>();
-        //diamandsText = GameObject.Find("Canvas/UI_RightTable/Diamondtable/Text").GetComponent<Text>();
+        goldText = GameObject.Find("Canvas/UI_LeftTable/Goldtable/Text").GetComponent<Text>();
+        diamandsText = GameObject.Find("Canvas/UI_RightTable/Diamondtable/Text").GetComponent<Text>();
+
+        imageGoldPlace = GameObject.Find("Canvas/UI_LeftTable/GoldImage").transform;
+        imageDiamandsPlace = GameObject.Find("Canvas/UI_RightTable/DiamondImage").transform;
+
+        goldPlace = GameObject.Find("GoldPlace").transform;
+        diamondsPlace = GameObject.Find("DiamandsPlace").transform;
     }
 
     // Update is called once per frame
@@ -99,8 +105,8 @@ public class Gun : MonoBehaviour
 
 
 
-        //goldText.text = gold.ToString();
-        //diamandsText.text = diamands.ToString();
+        goldText.text = gold.ToString();
+        diamandsText.text = diamands.ToString();
 
 
         //旋转枪的方法

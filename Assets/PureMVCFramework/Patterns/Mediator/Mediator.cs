@@ -67,31 +67,37 @@ namespace PureMVC.Patterns
 			m_viewComponent = viewComponent;
 		}
 
-		#endregion
+        #endregion
+        #region IMediator Members
 
-		#region Public Methods
+        #endregion
+        #region IMediator Members
 
-		#region IMediator Members
+        #endregion
 
-		/// <summary>
-		/// List the <c>INotification</c> names this <c>Mediator</c> is interested in being notified of
-		/// </summary>
-		/// <returns>The list of <c>INotification</c> names </returns>
-		public virtual IList<string> ListNotificationInterests()
-		{
-			return new List<string>();
-		}
+        #region Public Methods
 
-		/// <summary>
-		/// Handle <c>INotification</c>s
-		/// </summary>
-		/// <param name="notification">The <c>INotification</c> instance to handle</param>
-		/// <remarks>
-		///     <para>
-		///        Typically this will be handled in a switch statement, with one 'case' entry per <c>INotification</c> the <c>Mediator</c> is interested in. 
-		///     </para>
-		/// </remarks>
-		public virtual void HandleNotification(INotification notification)
+        #region IMediator Members
+
+        /// <summary>
+        /// List the <c>INotification</c> names this <c>Mediator</c> is interested in being notified of
+        /// </summary>
+        /// <returns>The list of <c>INotification</c> names </returns>
+        public virtual IList<string> GetListNotificationInterests()
+        {
+            return new List<string>();
+        }
+
+        /// <summary>
+        /// Handle <c>INotification</c>s
+        /// </summary>
+        /// <param name="notification">The <c>INotification</c> instance to handle</param>
+        /// <remarks>
+        ///     <para>
+        ///        Typically this will be handled in a switch statement, with one 'case' entry per <c>INotification</c> the <c>Mediator</c> is interested in. 
+        ///     </para>
+        /// </remarks>
+        public virtual void HandleNotification(INotification notification)
 		{
 		}
 

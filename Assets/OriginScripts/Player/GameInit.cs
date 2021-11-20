@@ -22,15 +22,20 @@ public class GameInit : MonoSingleton<GameInit>
     {
         DontDestroyOnLoad(this);
         Instance = this;
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 60;        
+        //启动Lua管理器
         LuaManager.GetInstance().StartUp();
-        
+     
       
+
     }
 
     private void Start()
     {
+        //DoString
         LuaManager.GetInstance().OnEntry();
+        //启动MVC
+        ApplicationFacade.GetInstance().Launch();
 
     }
 

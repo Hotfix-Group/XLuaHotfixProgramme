@@ -141,6 +141,7 @@
     <Compile Include="Assets\GoogleProtobuf\WellKnownTypes\Wrappers.cs" />
     <Compile Include="Assets\GoogleProtobuf\WellKnownTypes\WrappersPartial.cs" />
     <Compile Include="Assets\GoogleProtobuf\WireFormat.cs" />
+    <Compile Include="Assets\InitUI.cs" />
     <Compile Include="Assets\OriginScripts\Effect\Explosion.cs" />
     <Compile Include="Assets\OriginScripts\Effect\Pao.cs" />
     <Compile Include="Assets\OriginScripts\Effect\Shake.cs" />

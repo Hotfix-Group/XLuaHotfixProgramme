@@ -31,11 +31,7 @@ public class CostDiamondCommand : PureMVC.Patterns.SimpleCommand
         SkilldataProxy skilldataProxy = (SkilldataProxy)ApplicationFacade.Instance.RetrieveProxy(SkilldataProxy.NAME);
         skilldataProxy.CostDiamond(data.skillType, data.costDiamondNum);
         SkilldataModel SkillData = skilldataProxy.GetSkillData;
-        switch (data.skillType)
-        {
-           // case SkilldataProxy.SkillType.Ice:
-             //   ApplicationFacade.Instance.SendNotification(notification.)
-        }
+        GunPanel.
     }
 
 }

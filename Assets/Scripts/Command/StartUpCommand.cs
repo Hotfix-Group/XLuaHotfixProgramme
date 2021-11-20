@@ -10,15 +10,16 @@ public class StartUpCommand : PureMVC.Patterns.SimpleCommand
     public override void Execute(INotification notification)
     {
         base.Execute(notification);
-        //此处可接入luaUI框架，由lua端实现
-        GameObject canvas = GameObject.Find("Canvas");
-        GameObject obj = Object.Instantiate(Resources.Load<GameObject>("Prefabs/UI/MainUI/UI_Main"),canvas.transform);
+        //界面初始化由Lua端实现
+        //GameObject canvas = GameObject.Find("Canvas");
+        //GameObject obj = Object.Instantiate(Resources.Load<GameObject>("Prefabs/UI/MainUI/UI_Main"),canvas.transform);
+        GameObject obj = GameObject.Find("Canvas/UI_Main");
         if(obj == null)
         {
-            Debug.Log("cannot find ui prefab");
+            Debug.Log("cannot find ui");
             return;
         }
-        obj.name = "UI_Main";
+       // obj.name = "UI_Main";
         Facade.RegisterMediator(new MainPanelMediator(obj));
         Debug.Log("start up command");
     }

@@ -66,7 +66,14 @@ public class LuaManager : MonoSingleton<LuaManager>
         if (luaEnv != null)
         {
             loadScript(luaGameEntryScript);
-            DoString("Main.Start()");
+            DoString("Main.Startup()");
+        }
+    }
+    public void GameStart()
+    {
+        if (luaEnv != null)
+        {
+            DoString("Main.EnterGame()");
         }
     }
     //执行lua脚本

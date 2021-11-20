@@ -96,17 +96,17 @@ namespace PureMVC.Interfaces
         /// </summary>
 		object ViewComponent { get; set; }
 
-		/// <summary>
+        /// <summary>
         /// List <c>INotification interests</c>
         /// </summary>
         /// <returns>An <c>IList</c> of the <c>INotification</c> names this <c>IMediator</c> has an interest in</returns>
-        IList<string> ListNotificationInterests();
-		
+        IList<string> GetListNotificationInterests();
+
         /// <summary>
         /// Handle an <c>INotification</c>
         /// </summary>
         /// <param name="notification">The <c>INotification</c> to be handled</param>
-		void HandleNotification(INotification notification);
+        void HandleNotification(INotification notification);
 		
 		/// <summary>
 		/// Called by the View when the Mediator is registered
