@@ -67,6 +67,7 @@ public class LuaManager : MonoSingleton<LuaManager>
         {
             loadScript(luaGameEntryScript);
             DoString("Main.Startup()");
+            Debug.Log("Do String");
         }
     }
     public void GameStart()
@@ -84,7 +85,7 @@ public class LuaManager : MonoSingleton<LuaManager>
             try
             {
                 luaEnv.DoString(_luaScript,_chunkName,_luaTable);
-                Debug.Log("Do String");
+                
             }
             catch (System.Exception ex)
             {

@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class SkillPanel
+public class SkillPanel:MonoBehaviour
 {
+    public const string SkillPanelMediatorName = "SkillPanelMediator";
+
     public Button BtnFire;
     public Button BtnIce;
     public Button BtnSG;

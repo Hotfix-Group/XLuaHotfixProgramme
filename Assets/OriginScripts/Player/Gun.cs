@@ -16,8 +16,8 @@ public class Gun : MonoBehaviour
 
 
     //属性
-    public int gold = 100;
-    public int diamands = 50;
+//    public int gold = 100;
+//   public int diamands = 50;
     public int gunLevel = 1;
     private float rotateSpeed = 5f;
     public float attackCD = 1;
@@ -38,6 +38,9 @@ public class Gun : MonoBehaviour
     public Transform diamondsPlace;
     public Transform imageGoldPlace;
     public Transform imageDiamandsPlace;
+
+    private PlayerdataProxy playerdataProxy;
+    private PlayerdataModel playerData;
 
 
     public Text goldText;
@@ -76,12 +79,13 @@ public class Gun : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        gold = 100;
-        diamands = 50;
+//       gold = 100;
+//       diamands = 50;
         level = 2;
         bullectAudio = GetComponent<AudioSource>();
+        playerdataProxy = ApplicationFacade.Instance.RetrieveProxy(PlayerdataProxy.NAME) as PlayerdataProxy;
+        playerData = playerdataProxy.GetPlayerData;
 
-       
 
     }
 
@@ -89,11 +93,13 @@ public class Gun : MonoBehaviour
     void Start()
     {
 
-        goldText = GameObject.Find("Canvas/UI_LeftTable/Goldtable/Text").GetComponent<Text>();
-        diamandsText = GameObject.Find("Canvas/UI_RightTable/Diamondtable/Text").GetComponent<Text>();
+        goldText = GameObject.Find("Canvas/UI_GunPanel/UI_LeftTable/Goldtable/Text").GetComponent<Text>();
+        diamandsText = GameObject.Find("Canvas/UI_GunPanel/UI_RightTable/Diamondtable/Text").GetComponent<Text>();
 
-        imageGoldPlace = GameObject.Find("Canvas/UI_LeftTable/GoldImage").transform;
-        imageDiamandsPlace = GameObject.Find("Canvas/UI_RightTable/DiamondImage").transform;
+     
+
+        imageGoldPlace = GameObject.Find("Canvas/UI_GunPanel/UI_LeftTable/GoldImage").transform;
+        imageDiamandsPlace = GameObject.Find("Canvas/UI_GunPanel/UI_RightTable/DiamondImage").transform;
 
         goldPlace = GameObject.Find("GoldPlace").transform;
         diamondsPlace = GameObject.Find("DiamandsPlace").transform;
@@ -105,8 +111,8 @@ public class Gun : MonoBehaviour
 
 
 
-        goldText.text = gold.ToString();
-        diamandsText.text = diamands.ToString();
+        //goldText.text = gold.ToString();
+        //diamandsText.text = diamands.ToString();
 
 
         //旋转枪的方法
@@ -225,7 +231,10 @@ public class Gun : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-
+            if (playerdataProxy.PlayerData.CoinNum<=0)
+            {
+                return;
+            }
             bullectAudio.clip = bullectAudios[gunLevel - 1];
             bullectAudio.Play();
 
@@ -240,8 +249,10 @@ public class Gun : MonoBehaviour
 
             if (!canShootForFree)
             {
-                GoldChange(-1 - (gunLevel - 1) * 2);
-
+                //GoldChange(-1 - (gunLevel - 1) * 2);
+                //攻击部分不属于UI，该用MVC管理吗
+                //开火时将当前枪械等级传给proxy
+                ApplicationFacade.Instance.SendNotification(ApplicationFacade.ALTER_COIN, new AlterCoinCommand.Data(gunLevel));
             }
             attackCD = 0;
             attack = false;
@@ -262,16 +273,14 @@ public class Gun : MonoBehaviour
         }
 
 
-        gold += number;
+        //gold += number;
     }
 
     //增减钻石
 
     public void DiamandsChange(int number)
     {
-
-
-        diamands += number;
+        //diamands += number;
     }
 
     /// <summary>

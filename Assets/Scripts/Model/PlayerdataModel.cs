@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class PlayerdataModel
 {
-    public int CoinNum=5000;//金币数量
+    public int CoinNum=500;//金币数量
 
-    public int DiamondNum=5000;//钻石数量
+    public int DiamondNum=50;//钻石数量
 }

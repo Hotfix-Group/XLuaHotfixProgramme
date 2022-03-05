@@ -21,6 +21,11 @@ public class Ice : MonoBehaviour
     Button but;
     private AudioSource fireAudio;
     private int reduceDiamands;
+
+    private DiamondEvent DiamondEvent = DiamondEvent.Ice;
+
+    private SkilldataProxy skillData = ApplicationFacade.Instance.RetrieveProxy(SkilldataProxy.NAME) as SkilldataProxy;
+    private PlayerdataProxy playerData = ApplicationFacade.Instance.RetrieveProxy(PlayerdataProxy.NAME) as PlayerdataProxy;
     // Use this for initialization
     private void Awake()
     {
@@ -61,7 +66,11 @@ public class Ice : MonoBehaviour
             if (!Gun.Instance.Fire && !Gun.Instance.Ice)
             {
 
-                if (Gun.Instance.diamands <= reduceDiamands)
+                //if (Gun.Instance.diamands <= reduceDiamands)
+                //{
+                //    return;
+                //}
+                if (playerData.PlayerData.DiamondNum <= reduceDiamands)
                 {
                     return;
                 }
@@ -70,7 +79,8 @@ public class Ice : MonoBehaviour
                     return;
                 }
                 fireAudio.Play();
-                Gun.Instance.DiamandsChange(-reduceDiamands);
+                ApplicationFacade.Instance.SendNotification(ApplicationFacade.ALTER_DIAMOND, new AlterDiamondCommand.Data(DiamondEvent, skillData.SkillData.IceCost));
+                //Gun.Instance.DiamandsChange(-reduceDiamands);
                 Gun.Instance.Ice = true;
                 canUse = false;
                 cdSlider.transform.Find("Background").gameObject.SetActive(true);

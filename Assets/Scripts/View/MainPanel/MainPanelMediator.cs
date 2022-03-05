@@ -25,7 +25,7 @@ public class MainPanelMediator : PureMVC.Patterns.Mediator
         view = ((GameObject)ViewComponent).GetComponent<MainPanel>();
         Debug.Log("Main panel mediator");
         versionData = Facade.RetrieveProxy(VersionProxy.NAME) as VersionProxy;
-
+        
         view.BtnPlay.onClick.AddListener(OnClickPlay);
     }
     //点击开始按钮，发送消息

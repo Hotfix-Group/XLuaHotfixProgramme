@@ -36,6 +36,9 @@ public class Fish : MonoBehaviour
     public bool cantRotate = false;
 
     // Use this for initialization
+
+    private int coinEvent = -1;
+    private PrizedataProxy prizedataProxy = ApplicationFacade.Instance.RetrieveProxy(PrizedataProxy.NAME) as PrizedataProxy;
     void Start()
     {
         fire = transform.Find("Fire").gameObject;
@@ -152,10 +155,13 @@ public class Fish : MonoBehaviour
     }
     private void Prize()
     {
-        Gun.Instance.GoldChange(GetCold);
+        //Gun.Instance.GoldChange(GetCold);
+        ApplicationFacade.Instance.SendNotification(ApplicationFacade.ALTER_COIN, new AlterCoinCommand.Data(coinEvent));
+        
         if (GetDiamands != 0)
         {
-            Gun.Instance.DiamandsChange(GetDiamands);
+            //Gun.Instance.DiamandsChange(GetDiamands);
+            ApplicationFacade.Instance.SendNotification(ApplicationFacade.ALTER_DIAMOND, new AlterDiamondCommand.Data(DiamondEvent.Fish,prizedataProxy.Prizedata.FishPrizeDiamond));
             Instantiate(diamands, transform.position, transform.rotation);
         }
 

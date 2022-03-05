@@ -26,7 +26,7 @@ public class HotfixScripts : MonoBehaviour
     private byte[] MyLoader(ref string filePath)
     {
         //导入lua文件
-        string absPath = @"D:\XluaProjects\PlayerGamePackage\" + filePath + ".lua.txt";
+        string absPath = Application.streamingAssetsPath + filePath + ".lua.txt";
         //读入lua文件并将返回值转化为Byte数组
         return System.Text.Encoding.UTF8.GetBytes(File.ReadAllText(absPath));
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using PureMVC.Interfaces;
 /// <summary>
-/// 游戏启动并初始化UI的Command
+/// 游戏启动并初始化开始界面的Command
 /// </summary>
 public class StartUpCommand : PureMVC.Patterns.SimpleCommand
 {

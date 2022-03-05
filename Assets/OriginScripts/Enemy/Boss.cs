@@ -156,7 +156,8 @@ public class Boss : MonoBehaviour
             {
                 if (reduceGold != 0)
                 {
-                    Gun.Instance.GoldChange(reduceGold);
+                    //Gun.Instance.GoldChange(reduceGold);
+                    
                 }
                 if (reduceDiamond != 0)
                 {

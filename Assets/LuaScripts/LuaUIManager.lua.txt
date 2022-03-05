@@ -23,10 +23,11 @@ local function InitGame()
 	
     local obj = CreatePanel("UI_Skills")
     CreatePanel("UI_Chest")
-    CreatePanel("UI_LeftTable")
-    CreatePanel("UI_RightTable")
+    --CreatePanel("UI_LeftTable")
+    --CreatePanel("UI_RightTable")
     CreatePanel("UI_ReturnMenu")
-    CreatePanel("UI_Gun")
+    --CreatePanel("UI_Gun")
+    CreatePanel("UI_GunPanel")
 
 	--windows[] = obj
 	--currWindow = obj

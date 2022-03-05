@@ -21,13 +21,15 @@ public class Treasour : MonoBehaviour
     public Transform cavas;
     private bool isDrease;
 
-
+    private int coinEvent;
     private void Awake()
     {
         but = GetComponent<Button>();
         but.onClick.AddListener(OpenTreasour);
         img = GetComponent<Image>();
-    }
+        coinEvent = 0;
+        cavas = GameObject.Find("Canvas").transform;
+}
 
     void OpenTreasour()
     {
@@ -36,8 +38,10 @@ public class Treasour : MonoBehaviour
             return;
         }
         cdView.SetActive(true);
-        Gun.Instance.GoldChange(Random.Range(100, 200));
-        Gun.Instance.DiamandsChange(Random.Range(10, 50));
+        //Gun.Instance.GoldChange(Random.Range(100, 200));
+        //Gun.Instance.DiamandsChange(Random.Range(10, 50));
+        ApplicationFacade.Instance.SendNotification(ApplicationFacade.ALTER_COIN, new AlterCoinCommand.Data(coinEvent));
+        ApplicationFacade.Instance.SendNotification(ApplicationFacade.ALTER_DIAMOND, new AlterDiamondCommand.Data(DiamondEvent.Chest,50));
         CreatePrize();
         isDrease = true;
     }

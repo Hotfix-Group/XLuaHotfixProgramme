@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using XLua;
+//using System.Reflection;
+//using System.Linq;
 
 //配置的详细介绍请看Doc下《XLua的配置.doc》
 public static class ExampleGenConfig
@@ -63,6 +65,7 @@ public static class ExampleGenConfig
     //黑名单
     [BlackList]
     public static List<List<string>> BlackList = new List<List<string>>()  {
+                new List<string>(){"System.Xml.XmlNodeList", "ItemOf"},
                 new List<string>(){"UnityEngine.WWW", "movie"},
     #if UNITY_WEBGL
                 new List<string>(){"UnityEngine.WWW", "threadPriority"},
@@ -71,6 +74,14 @@ public static class ExampleGenConfig
                 new List<string>(){"UnityEngine.Security", "GetChainOfTrustValue"},
                 new List<string>(){"UnityEngine.CanvasRenderer", "onRequestRebuild"},
                 new List<string>(){"UnityEngine.Light", "areaSize"},
+                new List<string>(){"UnityEngine.Light", "lightmapBakeType"},
+    #if UNITY_ANDROID
+                new List<string>(){"UnityEngine.Light", "SetLightDirty"},
+                new List<string>(){"UnityEngine.Light", "shadowRadius"},
+                new List<string>(){"UnityEngine.Light", "shadowAngle"},
+    #endif
+                new List<string>(){"UnityEngine.WWW", "MovieTexture"},
+                new List<string>(){"UnityEngine.WWW", "GetMovieTexture"},
                 new List<string>(){"UnityEngine.AnimatorOverrideController", "PerformOverrideClipListCleanup"},
     #if !UNITY_WEBPLAYER
                 new List<string>(){"UnityEngine.Application", "ExternalEval"},

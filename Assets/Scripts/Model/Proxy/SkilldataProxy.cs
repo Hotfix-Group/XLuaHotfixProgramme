@@ -4,17 +4,24 @@ using UnityEngine;
 /// <summary>
 /// 技能数据代理
 /// </summary>
-public class SkilldataProxy : PureMVC.Patterns.Proxy
-{
-    public new static string NAME = "VersionData";
-
-    public enum SkillType
+/// 
+    public enum DiamondEvent
     {
         None,
+        Boss = -3,
+        Chest = -2,
+        Fish = -1,
         Ice = 1,
         Fire = 2,
         SG = 3
+ 
     }
+
+    public class SkilldataProxy : PureMVC.Patterns.Proxy
+{
+    public new static string NAME = "SkillData";
+
+ 
 
     public SkilldataModel SkillData;
     public PlayerdataModel playerdata;
@@ -29,21 +36,21 @@ public class SkilldataProxy : PureMVC.Patterns.Proxy
         SkillData = new SkilldataModel();
     }
     //技能花费钻石
-    public void CostDiamond(SkillType skillType,int costDiamondNumber)
+    public void CostDiamond(DiamondEvent DiamondEvent,int costDiamondNumber)
     {
-        switch(skillType)
+        switch(DiamondEvent)
         {
-            case SkillType.Ice:
+            case DiamondEvent.Ice:
                 {
                    playerdata.DiamondNum -= SkillData.IceCost;
                 }
                 break;
-            case SkillType.Fire:
+            case DiamondEvent.Fire:
                 {
                     playerdata.DiamondNum -= SkillData.FireCost;
                 }
                 break;
-            case SkillType.SG:
+            case DiamondEvent.SG:
                 {
                     playerdata.DiamondNum -= SkillData.SGCost;
                 }

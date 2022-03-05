@@ -1,0 +1,67 @@
+--1.1 修复了领取宝箱时，钻石和金币过于紧密的BUG
+
+local UnityEngine=CS.UnityEngine
+xlua.hotfix(CS.Treasour,'CreatePrize',function(self)
+	for i=0,4,1 do
+		local go=UnityEngine.GameObject.Instantiate(self.gold,self.transform.position+UnityEngine.Vector3(-10 + i * 40,0,0),self.transform.rotation)
+		go.transform.SetParent(go.transform,self.cavas)
+		local go1=UnityEngine.GameObject.Instantiate(self.diamands,self.transform.position+UnityEngine.Vector3(0,40,0)+UnityEngine.Vector3(-10+i*40,0,0),self.transform.rotation)
+		go1.transform.SetParent(go1.transform,self.cavas)
+	end
+end)
+
+--1.1 修复了玩家金钱不足时依然可以开枪，导致金钱为负数的BUG
+
+xlua.hotfix(CS.Gun,'Attack',function(self)
+	if UnityEngine.Input.GetMouseButtonDown(0) then
+
+		--1.2 修复了玩家点击技能键和UI时仍然会发射子弹的BUG
+
+		if UnityEngine.EventSystems.EventSystem.current:IsPointerOverGameObject() then
+			return
+		end
+
+		if self.gold<1+(self.gunLevel-1)*2 or gold==0 then
+			return
+		end
+
+		self.bullectAudio.clip=self.bullectAudios[self.gunLevel-1]
+		self.bullectAudio:Play()
+
+		if self.Butterfly then
+			UnityEngine.GameObject.Instantiate(self.Bullects[self.gunLevel-1],self.attackPos.position,self.attackPos.rotation*UnityEngine.Quaternion.Euler(0,0,20))
+			UnityEngine.GameObject.Instantiate(self.Bullects[self.gunLevel-1],self.attackPos.position,self.attackPos.rotation*UnityEngine.Quaternion.Euler(0,0,-20))
+		end
+		
+		UnityEngine.GameObject.Instantiate(self.Bullects[self.gunLevel-1],self.attackPos.position,self.attackPos.rotation)
+
+		if not self.canShootForFree then
+			self:GoldChange(-1-(self.gunLevel-1)*2)
+		end
+		self.attackCD=0
+		self.attack=false
+	end
+
+
+end)
+
+--*******************************************************************************
+
+--1.2 调整了使用技能所需要的宝石数量
+
+xlua.hotfix(CS.Fire,'Start',function(self)
+	self.reduceDiamands = 6;
+end)
+
+xlua.hotfix(CS.Ice,'Start',function(self)
+	self.reduceDiamands = 8;
+end)
+
+xlua.hotfix(CS.ButterFly,'Start',function(self)
+	self.reduceDiamands = 5;
+end)
+
+--调用加载AB包的方法加载新的资源
+
+
+

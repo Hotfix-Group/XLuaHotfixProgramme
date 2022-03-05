@@ -18,6 +18,11 @@ public class Fire : MonoBehaviour
     public Slider cdSlider;
     private int reduceDiamands;
 
+    private DiamondEvent DiamondEvent = DiamondEvent.Fire;
+
+    private SkilldataProxy skillData = ApplicationFacade.Instance.RetrieveProxy(SkilldataProxy.NAME) as SkilldataProxy;
+    private PlayerdataProxy playerData = ApplicationFacade.Instance.RetrieveProxy(PlayerdataProxy.NAME) as PlayerdataProxy;
+
     private void Awake()
     {
         but = transform.GetComponent<Button>();
@@ -60,12 +65,18 @@ public class Fire : MonoBehaviour
             if (!Gun.Instance.Ice && !Gun.Instance.Fire)
             {
 
-                if (Gun.Instance.diamands <= reduceDiamands)
+                //if (Gun.Instance.diamands <= reduceDiamands)
+                //{
+                //    return;
+                //}
+
+                if (playerData.PlayerData.DiamondNum <= reduceDiamands)
                 {
                     return;
                 }
 
-                Gun.Instance.DiamandsChange(-reduceDiamands);
+                //Gun.Instance.DiamandsChange(-reduceDiamands);
+                ApplicationFacade.Instance.SendNotification(ApplicationFacade.ALTER_DIAMOND, new AlterDiamondCommand.Data(DiamondEvent, skillData.SkillData.FireCost));
                 Gun.Instance.Fire = true;
                 canUse = false;
                 cdSlider.transform.Find("Background").gameObject.SetActive(true);

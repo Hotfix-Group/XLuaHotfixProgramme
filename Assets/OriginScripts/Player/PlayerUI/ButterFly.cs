@@ -20,6 +20,11 @@ public class ButterFly : MonoBehaviour
     public Slider cdSlider;
     private int reduceDiamands;
 
+    private DiamondEvent DiamondEvent = DiamondEvent.SG;
+
+    private SkilldataProxy skillData = ApplicationFacade.Instance.RetrieveProxy(SkilldataProxy.NAME) as SkilldataProxy;
+    private PlayerdataProxy playerData = ApplicationFacade.Instance.RetrieveProxy(PlayerdataProxy.NAME) as PlayerdataProxy;
+
     private void Awake()
     {
         but = transform.GetComponent<Button>();
@@ -29,7 +34,7 @@ public class ButterFly : MonoBehaviour
 
     void Start()
     {
-        reduceDiamands = 10;
+        reduceDiamands = skillData.SkillData.SGCost;
     }
 
     // Update is called once per frame
@@ -58,12 +63,17 @@ public class ButterFly : MonoBehaviour
         if (canUse)
         {
 
-            if (Gun.Instance.diamands <= reduceDiamands)
+            //if (Gun.Instance.diamands <= reduceDiamands)
+            //{
+            //    return;
+            //}
+            if (playerData.PlayerData.DiamondNum <= reduceDiamands)
             {
                 return;
             }
-            Gun.Instance.DiamandsChange(-reduceDiamands);
 
+            //Gun.Instance.DiamandsChange(-reduceDiamands);
+            ApplicationFacade.Instance.SendNotification(ApplicationFacade.ALTER_DIAMOND, new AlterDiamondCommand.Data(DiamondEvent, skillData.SkillData.SGCost));
 
             Gun.Instance.Butterfly = true;
             canUse = false;
